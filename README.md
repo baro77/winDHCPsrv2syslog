@@ -17,7 +17,7 @@ Server_N+2 -------------------------------------------------+
                                                             |
 Server_N+M -------------------------------------------------+
 ```
-where Server_1 to Server_N are hosts or devices providing logs via syslog (usually network or Linux stuff), while Server_N+1 to Server_N+M are boxes providing their data to ELK by other means (for example Microsoft ADDC via https://www.elastic.co/downloads/beats/winlogbeat or Aruba Clearpass via https://github.com/njohnsn/ClearPassAndELK - thanks Neil :simple_smile:).
+where Server_1 to Server_N are hosts or devices providing logs via syslog (usually network or Linux stuff), while Server_N+1 to Server_N+M are boxes providing their data to ELK by other means (for example Microsoft ADDC via https://www.elastic.co/downloads/beats/winlogbeat or Aruba Clearpass via https://github.com/njohnsn/ClearPassAndELK - thanks Neil :simple_smile: ).
 
 Regarding DHCP, I have both Linux running dhcpd and Windows Server **Core Edition** running dhcp service; of course syslog was the natural choice for dhcpd, and I wanted to have the same "leases experience" coming from Microsoft world: so I have used an instance of NXLog Community Edition (https://nxlog.co/products/nxlog-community-edition) installed on Windows DHCP Server to mold syslog messages from ```c:\windows\system32\dhcp\DhcpSrvLog-*.log```.
 
@@ -32,6 +32,7 @@ TODO
 ## Configuration file for NXLog
 
 It's provided in this repository: https://github.com/baro77/winDHCPsrv2syslog/blob/master/nxlog.conf.
+
 Just a few comments:
 1. the configuration is written to substitute the standard configuration file provided with NXLog (in ```C:\Program Files (x86)\nxlog\conf``` if you are using the common settings)
 2. it only handles IPv4 leases, but it shouldn't be difficult to add IPv6  (check it out ```DhcpSrvLog-*.log``` VS ```DhcpV6SrvLog-*.log``` files ;) )
