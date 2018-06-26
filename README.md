@@ -1,2 +1,18 @@
 # winDHCPsrv2syslog
-An example about how to use NXLog to convert Windows DHCP service leases to syslog messages
+I'm implementing an ELK Stack for my employer with the following topology:
+
+Server 1 ------+
+               |
+Server 2 ------+
+               +-------- NXLog centralizes syslogger ------- ELK Server
+...            |
+               | 
+Server n ------+
+
+Server n+1 --------------------------------------------------------+
+
+Server n+2 --------------------------------------------------------+
+
+...
+
+Server m+1 --------------------------------------------------------+
