@@ -31,7 +31,7 @@ I have used PowerShell over Windows Remote Management (WSMan), so I guess you co
 1. on a Windows 10 workstation with Windows Remote Management service (WSMan) running, open PowerShell ISE **as Administrator**
 2. if needed, trust your remote Windows DHCP Server: ```Set-Item WSMan:\LocalHost\Client\TrustedHosts "192.168.0.1"``` (let's suppose here and later that 192.168.0.1 is your Windows Server IP)
 3. establish a session: ```$s = New-PSSession -ComputerName "192.168.0.1" -Credential ~\Administrator``` (provide remote server's Administrator password when prompted)
-4. Copy the NXLog installer from your workstation to remote server (Administrator's Download folder is a good destination choice I guess): ```Copy-Item -ToSession $s -Path C:\Users\baro\Downloads\nxlog-ce-2.10.2102.msi -Destination C:\Users\Administrator\Downloads\nxlog-ce-2.10.2102.msi```
+4. Copy the NXLog installer from your workstation to remote server (Administrator's Downloads folder is a good destination choice I guess): ```Copy-Item -ToSession $s -Path C:\Users\baro\Downloads\nxlog-ce-2.10.2102.msi -Destination C:\Users\Administrator\Downloads\nxlog-ce-2.10.2102.msi```
 5. it's now time to switch to remote prompt: ```Enter-PSSession -Session $s```
 6. "cd" to the folder where you copied NXLog installer at point 4 and launch **quiet** installation: ```msiexec /i nxlog-ce-2.10.2102.msi /quiet``` (usual NXLog installation is graphical, but no GUI here :wink:)
 7. you can check NXLog service is installed and stopped with: ```Get-wmiobject win32_service | where Name -eq nxlog```
