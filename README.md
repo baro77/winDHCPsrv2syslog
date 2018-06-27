@@ -38,6 +38,7 @@ I have used PowerShell over Windows Remote Management (WSMan), so I guess you co
 8. "cd" to NXLog standard configuration folder (remember you have done a standard quite installation): ```cd 'C:\Program Files (x86)\nxlog\conf'```
 9. edit the configuration file: ```PSEdit .\nxlog.conf```, delete existing content, copy&paste content of the file provided in this repository, and  save the file (NOTE: instead of editing of course you can copy the configuration file as you have done with NXLog installer, if you prefer)
 10. you can stop and start NXLog service (needed to reread conf file after every new changes) with: ```Stop-Service -name nxlog``` and ```Start-Service -name nxlog```
+11. Once started, you can check NXLog's logs in ```C:\Program Files (x86)\nxlog\data\nxlog.log```
 
 ## Configuration file for NXLog
 
