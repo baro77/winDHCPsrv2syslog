@@ -28,10 +28,16 @@ The work consisted of two steps:
 ## NXLog installation on Windows Server Core
 
 I have used PowerShell over Windows Remote Management (WSMan), so I guess you could use the same approach if you have a **Nano** server:
-1. on a Windows 10 workstation with Windows Remote Management service (WSMan) running, open Powershell ISE **as Administrator**
+1. on a Windows 10 workstation with Windows Remote Management service (WSMan) running, open PowerShell ISE **as Administrator**
 2. if needed, trust your remote Windows DHCP Server: ```Set-Item WSMan:\LocalHost\Client\TrustedHosts "192.168.0.1"``` (let's suppose here and later that 192.168.0.1 is your Windows Server IP)
 3. establish a session: ```$s = New-PSSession -ComputerName "192.168.0.1" -Credential ~\Administrator``` (provide remote server's Administrator password when prompted)
-4. Copy the NXLog installer from your workstation to remote server (Administrator's Download folder is a good destination choice I guess :wink:): ```Copy-Item -ToSession $s -Path C:\Users\baro\Downloads\nxlog-ce-2.10.2102.msi -Destination C:\Users\Administrator\Downloads\nxlog-ce-2.10.2102.msi```
+4. Copy the NXLog installer from your workstation to remote server (Administrator's Download folder is a good destination choice I guess): ```Copy-Item -ToSession $s -Path C:\Users\baro\Downloads\nxlog-ce-2.10.2102.msi -Destination C:\Users\Administrator\Downloads\nxlog-ce-2.10.2102.msi```
+5. it's now time to switch to remote prompt: ```Enter-PSSession -Session $s```
+6. "cd" to the folder where you copied NXLog installer at point 4 and launch **quiet** installation: ```msiexec /i nxlog-ce-2.10.2102.msi /quiet``` (usual NXLog installation is graphical, but no GUI here :wink:)
+7. you can check NXLog service is installed and stopped with: ```Get-wmiobject win32_service | where Name -eq nxlog```
+8. "cd" to NXLog standard configuration folder (remember you have done a standard quite installation): ```cd 'C:\Program Files (x86)\nxlog\conf'```
+9. edit the configuration file: ```PSEdit .\nxlog.conf```, delete existing content, copy&paste content of the file provided in this repository, and  save the file (NOTE: instead of editing of course you can copy the configuration file as you have done with NXLog installer, if you prefer)
+10. you can stop and start NXLog service (needed to reread conf file after every new changes) with: ```Stop-Service -name nxlog``` and ```Start-Service -name nxlog```
 
 ## Configuration file for NXLog
 
@@ -44,5 +50,5 @@ Just a few comments:
 4. to be accurate, the timestamp of syslog messages originates from the actual date and time of the lease, not from the time the agent reads the lease
 5. change the syslog facility and severity as you like, and don't forget to insert your remote syslogger address where you find ```# your syslog address here!!!``` comment
 6. the lease is then written as-is in the MSG part of syslog message (so, for example, you'll find the date and time fields from which the timestamp has been generated): that's my choice because I just want a syslog message (I need to collect "old-school" textual logs in centralized syslogger, and delegate value-added parsing to ELK), but of course you have all you need to get more structured and powerful output since the agent CSV-analyze the lease line
-7. Once in a PowerShell Session on the Windows Server (how-to in previous section), you can stop and start NXLog service (needed to reread conf file after changes) from the CLI with: ```Stop-Service -name nxlog``` and ```Start-Service -name nxlog```
+
 
