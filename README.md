@@ -17,7 +17,7 @@ Server_N+2 -------------------------------------------------+
                                                             |
 Server_N+M -------------------------------------------------+
 ```
-where Server_1 to Server_N are hosts or devices providing logs via syslog (usually network or Linux stuff), while Server_N+1 to Server_N+M are boxes providing their data to ELK by other means (for example Microsoft Active Directory Domain Controllers via https://www.elastic.co/downloads/beats/winlogbeat or Aruba Clearpass via https://github.com/njohnsn/ClearPassAndELK - thanks Neil :+1:).
+where Server_1 to Server_N are hosts or devices providing logs via syslog (usually network or Linux stuff), while Server_N+1 to Server_N+M are boxes providing their data to ELK by other means (for example Microsoft Active Directory Domain Controllers via [Winlogbeat](https://www.elastic.co/downloads/beats/winlogbeat) or Aruba Clearpass via [Neil Johnson's CPPM & Logstash Configuration Files](https://github.com/njohnsn/ClearPassAndELK) - thanks Neil :+1:).
 
 Regarding DHCP, I have both Linux running dhcpd and Windows Server 2016 Standard **Core** running dhcp service; of course syslog was the natural choice for dhcpd, and I wanted to have the same "leases experience" coming from Microsoft world: so I have used an instance of NXLog Community Edition (https://nxlog.co/products/nxlog-community-edition) installed on Windows DHCP Server to mold syslog messages from ```c:\windows\system32\dhcp\DhcpSrvLog-*.log```.
 
@@ -27,7 +27,15 @@ The work consisted of two steps:
 
 ## NXLog installation on Windows Server Core
 
-TODO 
+I have used PowerShell over Windows Remote Management (WSMan), so I guess you could use the same approach if you have a **Nano** server:
+1. on a Windows 10 workstation with Windows Remote Management service (WSMan) running, open Powershell ISE **as Administrator**
+2. if needed, trust your remote Windows DHCP Server: ```Set-Item WSMan:\LocalHost\Client\TrustedHosts "192.168.0.1"``` (let's suppose here and later that 192.168.0.1 is your Windows Server IP)
+3. establish a session: 
+```
+$ip = "160.78.50.111"
+ $s = New-PSSession -ComputerName $ip -Credential ~\Administrator
+ ``` 
+ (provide Administrator password for remote server when prompted)
 
 ## Configuration file for NXLog
 
