@@ -39,6 +39,7 @@ I have used PowerShell over Windows Remote Management (WSMan), so I guess you co
 9. edit the configuration file: ```PSEdit .\nxlog.conf```, delete existing content, copy&paste content of the file provided in this repository (https://github.com/baro77/winDHCPsrv2syslog/blob/master/nxlog.conf), and  save the file (NOTE: instead of editing of course you can copy the configuration file as you have done with NXLog installer, if you prefer)
 10. you can stop and start NXLog service (needed to reread conf file after every new changes) with: ```Stop-Service -name nxlog``` and ```Start-Service -name nxlog```
 11. Once started, you can check NXLog's logs in ```C:\Program Files (x86)\nxlog\data\nxlog.log```
+12. When all is done, you can exit from PowerShell remote prompt with ```Exit-PSSession```
 
 ## Configuration file for NXLog
 
