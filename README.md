@@ -30,12 +30,8 @@ The work consisted of two steps:
 I have used PowerShell over Windows Remote Management (WSMan), so I guess you could use the same approach if you have a **Nano** server:
 1. on a Windows 10 workstation with Windows Remote Management service (WSMan) running, open Powershell ISE **as Administrator**
 2. if needed, trust your remote Windows DHCP Server: ```Set-Item WSMan:\LocalHost\Client\TrustedHosts "192.168.0.1"``` (let's suppose here and later that 192.168.0.1 is your Windows Server IP)
-3. establish a session: 
-```
-$ip = "160.78.50.111"
- $s = New-PSSession -ComputerName $ip -Credential ~\Administrator
- ``` 
- (provide Administrator password for remote server when prompted)
+3. establish a session: ```$s = New-PSSession -ComputerName "192.168.0.1" -Credential ~\Administrator``` (provide remote server's Administrator password when prompted)
+4. Copy the NXLog installer from your workstation to remote server (Administrator's Download folder is a good destination choice I guess :wink:): ```Copy-Item -ToSession $s -Path C:\Users\baro\Downloads\nxlog-ce-2.10.2102.msi -Destination C:\Users\Administrator\Downloads\nxlog-ce-2.10.2102.msi```
 
 ## Configuration file for NXLog
 
