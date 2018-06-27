@@ -19,7 +19,7 @@ Server_N+M -------------------------------------------------+
 ```
 where Server_1 to Server_N are hosts or devices providing logs via syslog (usually network or Linux stuff), while Server_N+1 to Server_N+M are boxes providing their data to ELK by other means (for example Microsoft Active Directory Domain Controllers via [Winlogbeat](https://www.elastic.co/downloads/beats/winlogbeat) or Aruba Clearpass via [Neil Johnson's CPPM & Logstash Configuration Files](https://github.com/njohnsn/ClearPassAndELK) - thanks Neil :+1:).
 
-Regarding DHCP, I have both Linux running dhcpd and Windows Server 2016 Standard **Core** running dhcp service; of course syslog was the natural choice for dhcpd, and I wanted to have the same "leases experience" coming from Microsoft world: so I have used an instance of NXLog Community Edition (https://nxlog.co/products/nxlog-community-edition) installed on Windows DHCP Server to mold syslog messages from ```c:\windows\system32\dhcp\DhcpSrvLog-*.log```.
+Regarding DHCP, I have both Linux running dhcpd and Windows Server 2016 Standard **Core** running dhcp service; of course syslog was the natural choice for dhcpd, and I wanted to have the same "leases experience" coming from Microsoft world: so I have used an instance of [NXLog Community Edition](https://nxlog.co/products/nxlog-community-edition) installed on Windows DHCP Server to mold syslog messages from ```c:\windows\system32\dhcp\DhcpSrvLog-*.log```.
 
 The work consisted of two steps:
 1. installing NXLog on Windows Server Core.
