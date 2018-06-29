@@ -51,6 +51,6 @@ Just a few comments:
 3. Windows leases have a bunch of trash at the top of the file explaining you how to read the actual lease lines: to avoid it the agent ignores all the lines not beginning with two digits and a comma (```if $raw_event !~ /^\d\d,.+/ {``` ...)
 4. to be accurate, the timestamp of syslog messages originates from the actual date and time of the lease, not from the time the agent reads the lease
 5. change the syslog facility and severity as you like, and don't forget to insert your remote syslogger address where you find ```# your syslog address here!!!``` comment
-6. the lease is then written as-is in the MSG part of syslog message (so, for example, you'll find the date and time fields from which the timestamp has been generated): that's my choice because I just want a syslog message (I need to collect "old-school" textual logs in centralized syslogger, and delegate value-added parsing to ELK), but of course you have all you need to get more structured and powerful output since the agent CSV-analyze the lease line
+6. the lease is then written as-is in the MSG part of syslog message (so, for example, you'll find the date and time fields from which the timestamp has been generated): that's my choice because I just want a simple syslog message (I need to collect "old-school" textual logs in centralized syslogger, and delegate value-added parsing to ELK), but of course you have all you need to get more structured and powerful output since the agent CSV-analyzes the lease line
 
 
